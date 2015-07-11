@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
   model() {
-    return this.store.find('budgetEntry');
+    return this.store.findAll('budgetEntry');
   },
   setupController(controller, model) {
     controller.set('model', model);

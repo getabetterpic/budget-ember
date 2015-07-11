@@ -1,6 +1,31 @@
-{{#each rootCategories as |category|}}
-  {{category.name}}<br />
-  {{#each category.children as |child|}}
-    {{child.name}}<br />
+<h2>{{moment selectedDate 'MMMM'}}</h2>
+<table class="ui definition table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Budget</th>
+      <th class="right aligned">This month</th>
+    </tr>
+  </thead>
+  <tbody>
+  {{#each rootCategories as |category|}}
+    <tr>
+      <td><h3>{{category.name}}</h3></td>
+      <td></td>
+      <td></td>
+    </tr>
+    {{#each category.children as |child|}}
+      <tr>
+        <td>{{child.name}}</td>
+        <td>
+          <div class="ui labeled input">
+            <div class="ui label">$</div>
+            {{input entryForCategory child placeholder="0.00" type="text"}}
+          </div>
+        </td>
+        <td class="right aligned">$0.00</td>
+      </tr>
+    {{/each}}
   {{/each}}
-{{/each}}
+  </tbody>
+</table>
