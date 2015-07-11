@@ -6,6 +6,8 @@ var Router = Ember.Router.extend({
 });
 
 Router.map(function() {
+  this.route('categories');
+  this.route('budget-entries');
 });
 
 export default Router;

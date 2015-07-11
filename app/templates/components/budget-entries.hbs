@@ -1,0 +1,6 @@
+{{#each rootCategories as |category|}}
+  {{category.name}}<br />
+  {{#each category.children as |child|}}
+    {{child.name}}<br />
+  {{/each}}
+{{/each}}
