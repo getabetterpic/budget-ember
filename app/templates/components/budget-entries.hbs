@@ -1,31 +1,21 @@
-<h2>{{moment selectedDate 'MMMM'}}</h2>
+<h2>{{format-date date=selectedDate format='MMMM'}}</h2>
 <table class="ui definition table">
   <thead>
     <tr>
       <th></th>
       <th>Budget</th>
-      <th class="right aligned">This month</th>
+      <th>So far</th>
     </tr>
   </thead>
   <tbody>
-  {{#each rootCategories as |category|}}
-    <tr>
-      <td><h3>{{category.name}}</h3></td>
-      <td></td>
-      <td></td>
-    </tr>
-    {{#each category.children as |child|}}
+    {{#each rootCategories as |category|}}
       <tr>
-        <td>{{child.name}}</td>
-        <td>
-          <div class="ui labeled input">
-            <div class="ui label">$</div>
-            {{input entryForCategory child placeholder="0.00" type="text"}}
-          </div>
-        </td>
-        <td class="right aligned">$0.00</td>
+        <td colspan="3"><h3>{{category.name}}</h3></td>
       </tr>
+        {{#each category.children as |child|}}
+          {{entry-line category=child selectedDate=selectedDate store=store}}
+        {{/each}}
     {{/each}}
-  {{/each}}
   </tbody>
 </table>
+<a {{action 'nextMonth'}}>Next Month ->></a>

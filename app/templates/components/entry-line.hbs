@@ -1,0 +1,7 @@
+<td>{{category.name}}</td>
+<td>
+  <div class="ui action input">
+    {{input placeholder="0.00" type="text" value=lineAmount}}
+    <button class="ui button" {{action 'saveEntry' lineAmount}}>Save</button>
+  </div>
+</td>

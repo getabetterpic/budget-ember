@@ -3,7 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   categories: undefined,
   currentDate: moment(),
-  selectedDate: moment(),
+  selectedDate: undefined,
   rootCategories: Ember.computed('model.@each.category', function() {
     return this.get('store').filter('category', function(category) {
       return category.get('ancestry') === null;
@@ -11,14 +11,13 @@ export default Ember.Component.extend({
   }),
   budgetEntries: Ember.computed('model.@each.category', 'selectedDate', function() {
     var selectedDate = this.get('selectedDate');
+    console.log(selectedDate);
     var entries = this.get('store').filter('budgetEntry', function(entry) {
       return moment(entry.get('date')).isSame(selectedDate, 'month');
     });
-    console.log(entries);
     return entries;
   }),
-  entryForCategory: function(category) {
-    console.log(this.get('budgetEntries'));
+  entryForCategory: Ember.computed('budgetEntries.@each.category', 'selectedDate', function(category) {
     var self = this;
     var currentEntry = null;
     this.get('budgetEntries').forEach(function(entry) {
@@ -30,15 +29,17 @@ export default Ember.Component.extend({
       }
     });
     return currentEntry;
-  },
+  }),
   didInsertElement() {
     this.set('categories', this.get('store').find('category'));
+    this.set('selectedDate', moment());
   },
   actions: {
     nextMonth() {
       var currentSelected = this.get('selectedDate');
       var newSelected = currentSelected.add('1', 'months');
       this.set('selectedDate', newSelected);
+      console.log(this.get('selectedDate').format('MMMM'));
     },
     previousMonth() {
       var currentSelected = this.get('selectedDate');
