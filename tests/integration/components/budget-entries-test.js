@@ -14,14 +14,5 @@ test('it renders', function(assert) {
 
   this.render(hbs`{{budget-entries}}`);
 
-  assert.equal(this.$().text(), '');
-
-  // Template block usage:
-  this.render(hbs`
-    {{#budget-entries}}
-      template block text
-    {{/budget-entries}}
-  `);
-
-  assert.equal(this.$().text().trim(), 'template block text');
+  assert.equal(this.$('h2').text(), moment().format('MMMM'));
 });
